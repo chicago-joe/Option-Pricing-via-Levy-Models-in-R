@@ -195,37 +195,3 @@ FFT_Put_Parity_Table
 
 FFT_Call_Parity_Table<-cbind(FFT_Call_Parity_Prc,ql.fft.call.value)
 FFT_Call_Parity_Table
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # NMOF Library function for PCP:
-# putCallParity("call",put=put.prc.fft1,S=s0,X=strike,tau=T,r=r,q=q)
-# 
-# 
-# # QuantLib Price of European Call option:
-# # RQuantLib::EuropeanOption("c",s0,strike,q,r,T,0.25)
-# 
-# 
-# # Put-Call-Parity formula from scratch:
-# Call_Parity_Prc = put.prc.fft1 + s0*exp((-0.02 * T)) - (strike * exp(-r * T))
-# Call_Parity_Prc
-# 
-# 
-# # Put-Call-Parity formula from scratch:
-# Put_Parity_Prc = Call_Parity_Prc - (s0*exp((-0.02 * T)) - (strike * exp(-r * T)))
-# Put_Parity_Prc
-# 
-# 
-# 
-# 
