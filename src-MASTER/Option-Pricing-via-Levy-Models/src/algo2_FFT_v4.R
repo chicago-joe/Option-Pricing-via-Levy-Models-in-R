@@ -107,7 +107,6 @@ strike = 100;
 T = 0.5;
 r = 0.03;
 
-
 no_of_simulations = 256*10^3     # change number of MC iteriations here
 
 # initialize price lists
@@ -152,80 +151,3 @@ put.prc.fft2 <- sum(put_prices.list) / no_of_simulations
 values.table <- cbind(put.prc.fft1,put.prc.fft2)
 values.table
 
-
-
-
-# RQuantLib benchmarking -----------------------------------------------------
-# Use the EuropeanOption function of RQuantLib to calculate the Black-Scholes
-# price of the European Put (all inputs are identical to the NIG inputs above, except volatility)
-library(RQuantLib)
-q = 0.0
-
-
-ql.fft.put.value <- EuropeanOption(type = "put", underlying = s0, strike = strike,
-                               dividendYield = q, riskFreeRate = r, maturity = 0.5, volatility = 0.25)
-
-put_prices<-cbind(put.prc.fft1, ql.fft.put.value)
-
-print("NIG Put Price vs Black-Scholes:")
-put_prices
-
-
-library(NMOF)
-
-# NMOF Library function for PCP:
-putCallParity("call",put=put.prc.fft1,S=s0,X=strike,tau=T,r=r,q=q)
-
-
-# QuantLib Price of European Call option:
-ql.fft.call.value<-RQuantLib::EuropeanOption("c",s0,strike,q,r,T,0.25)
-ql.fft.call.value
-
-# Put-Call-Parity formula from scratch:
-FFT_Call_Parity_Prc = put.prc.fft1 + s0*exp((-q * T)) - (strike * exp(-r * T))
-FFT_Call_Parity_Prc
-
-
-# Put-Call-Parity formula from scratch:
-FFT_Put_Parity_Prc = FFT_Call_Parity_Prc - (s0*exp((-q * T)) - (strike * exp(-r * T)))
-FFT_Put_Parity_Prc
-
-FFT_Put_Parity_Table<-cbind(put.prc.fft1,FFT_Put_Parity_Prc,ql.fft.put.value)
-FFT_Put_Parity_Table
-
-FFT_Call_Parity_Table<-cbind(FFT_Call_Parity_Prc,ql.fft.call.value)
-FFT_Call_Parity_Table
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # NMOF Library function for PCP:
-# putCallParity("call",put=put.prc.fft1,S=s0,X=strike,tau=T,r=r,q=q)
-# 
-# 
-# # QuantLib Price of European Call option:
-# # RQuantLib::EuropeanOption("c",s0,strike,q,r,T,0.25)
-# 
-# 
-# # Put-Call-Parity formula from scratch:
-# Call_Parity_Prc = put.prc.fft1 + s0*exp((-0.02 * T)) - (strike * exp(-r * T))
-# Call_Parity_Prc
-# 
-# 
-# # Put-Call-Parity formula from scratch:
-# Put_Parity_Prc = Call_Parity_Prc - (s0*exp((-0.02 * T)) - (strike * exp(-r * T)))
-# Put_Parity_Prc
-# 
-# 
-# 
-# 

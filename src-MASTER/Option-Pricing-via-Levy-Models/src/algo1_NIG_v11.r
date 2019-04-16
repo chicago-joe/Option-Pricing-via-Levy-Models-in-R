@@ -143,28 +143,3 @@ print("NIG Put Price vs Black-Scholes:")
 put_prices
 
 
-library(NMOF)
-
-# NMOF Library function for PCP:
-putCallParity("call",put=euro_vanilla_put.value,S=s0,X=K,tau=T,r=r,q=q)
-
-
-# QuantLib Price of European Call option:
-ql.call.value<-RQuantLib::EuropeanOption("c",s0,K,q,r,T,0.25)
-ql.call.value
-
-# Put-Call-Parity formula from scratch:
-Call_Parity_Prc = euro_vanilla_put.value + s0*exp((-q * T)) - (K * exp(-r * T))
-Call_Parity_Prc
-
-
-# Put-Call-Parity formula from scratch:
-Put_Parity_Prc = Call_Parity_Prc - (s0*exp((-q * T)) - (K * exp(-r * T)))
-Put_Parity_Prc
-
-Put_Parity_Table<-cbind(Put_Parity_Prc,nig.put.value,ql.put.value)
-Put_Parity_Table
-
-Call_Parity_Table<-cbind(Call_Parity_Prc,ql.call.value)
-Call_Parity_Table
-
