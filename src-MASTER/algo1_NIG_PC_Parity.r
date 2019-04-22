@@ -11,7 +11,7 @@
 
 # Input Parameters --------------------------------------------------------
 # parameters taken from Feng Paper pg. 22-23
-alpha = 15;                       
+alpha = 23;                       
 beta = -5; 
 delta = 0.5; 
 r = 0.05; 
