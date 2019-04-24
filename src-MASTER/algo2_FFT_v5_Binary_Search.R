@@ -1,11 +1,11 @@
 ###########################################################################
-# Pricing European Put Options Through Simulating Levy Processes 
+# Pricing European Put Options Through Simulated Levy Processes 
 # Pseudocode implemented from Professor Liming Feng's Paper (pg. 08)
 #
 # Created by Joseph Loss on 1/01/2019
-# Additional Recognition: Yuchen Duan (UIUC MSFE) and Daniel Liberman (UIC Finance)
+# Co-developers: Yuchen Duan (UIUC MSFE) and Daniel Liberman (UIC Finance)
 #
-# Fast-Fourier-Transform Algorithm
+# Algorithm 2: Inverse-Transform Algorithm
 #
 ###########################################################################
 
@@ -14,7 +14,6 @@
 chi.0 = -0.477
 chi.K = 0
 K = 22
-
 
 # List Function (for initializing variable arrays) ------------------------
 seqlist<-function(a, b, n)  {
@@ -121,7 +120,6 @@ inverse_transform_method <- function()
   }
 }
 
-
 # Inverse Transform Method: Parameters -------------------------------
 # taken from Feng, Section 6.1 pg. 22
 Xt = inverse_transform_method()
@@ -130,7 +128,7 @@ strike = 100;
 T = 0.5;
 r = 0.03;
 
-no_of_simulations = 256*10^3     # change number of MC iteriations here
+no_of_simulations = 1024*10^3     # change number of MC iteriations here
 
 # initialize price lists
 stock_prices.list <- rep(0, no_of_simulations)
@@ -169,4 +167,40 @@ put.prc.fft2 <- sum(put_prices.list) / no_of_simulations
 # Output both methods to table:
 values.table <- cbind(put.prc.fft1,put.prc.fft2)
 values.table
+
+
+# RQuantLib benchmarking -----------------------------------------------------
+# Use the EuropeanOption function of RQuantLib to calculate the Black-Scholes
+# price of the European Put (all inputs are identical to the NIG inputs above, except volatility)
+library(RQuantLib)
+q = 0.0
+
+# QuantLib Price of the European Put option using Black-Scholes
+# to be compared with the FFT price and the PC-Parity Price
+quantlib.bsm.put.prc <- EuropeanOption(type = "put", underlying = s0, strike = strike,
+                                       dividendYield = q, riskFreeRate = r, maturity = 0.5, volatility = 0.25)
+
+put_prices<-cbind(put.prc.fft1, quantlib.bsm.put.prc)
+
+print("NIG Put Price vs Black-Scholes:")
+put_prices
+
+## NMOF Library function for PCP:
+# library(NMOF)
+# putCallParity("call",put=put.prc.fft1,S=s0,X=strike,tau=T,r=r,q=q)
+## result = $6.10
+
+# QuantLib Price of the European Call option using Black-Scholes
+quantlib.bsm.call.prc<-RQuantLib::EuropeanOption("c",s0,strike,q,r,T,0.25)
+quantlib.bsm.call.prc
+
+# Put-Call-Parity formula from scratch:
+Put_Parity_Prc = quantlib.bsm.call.prc$value - (s0*exp((-q * T)) - (strike * exp(-r * T)))
+Put_Parity_Prc
+
+# Call_Prc_Parity_Table<-cbind(FFT_Call_Parity_Prc, quantlib.bsm.call.prc)
+# Call_Prc_Parity_Table
+
+Put_Prc_Parity_Table<-cbind(put.prc.fft1, Put_Parity_Prc, quantlib.bsm.put.prc)
+Put_Prc_Parity_Table
 

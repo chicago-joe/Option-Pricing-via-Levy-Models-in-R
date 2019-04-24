@@ -1,11 +1,11 @@
 ###########################################################################
-# Pricing European Put Options Through Simulating Levy Processes 
+# Pricing European Put Options Through Simulated Levy Processes 
 # Pseudocode implemented from Professor Liming Feng's Paper (pg. 08)
 #
 # Created by Joseph Loss on 1/01/2019
-# Additional Recognition: Yuchen Duan (UIUC MSFE) and Daniel Liberman (UIC Finance)
+# Co-developers: Yuchen Duan (UIUC MSFE) and Daniel Liberman (UIC Finance)
 #
-# Fast-Fourier-Transform Algorithm
+# Algorithm 2: Inverse-Transform Algorithm
 #
 ###########################################################################
 
@@ -107,8 +107,7 @@ strike = 100;
 T = 0.5;
 r = 0.03;
 
-
-no_of_simulations = 4096*10^3     # change number of MC iteriations here
+no_of_simulations = 1024*10^3     # change number of MC iteriations here
 
 # initialize price lists
 stock_prices.list <- rep(0, no_of_simulations)

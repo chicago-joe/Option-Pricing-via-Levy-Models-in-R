@@ -21,7 +21,7 @@ K = s0;
 T = 0.5; 
 N = 1.0; 
 
-no_of_simulations= 409*10^3;       # change number of iterations here 
+no_of_simulations= 1024*10^3;       # change number of iterations here 
 
 # calculate mu using the formula given at the top of pg. 19
 mu = r - q + delta*(sqrt(alpha^2 - (beta+1)^2) - sqrt(alpha^2 - beta^2));
