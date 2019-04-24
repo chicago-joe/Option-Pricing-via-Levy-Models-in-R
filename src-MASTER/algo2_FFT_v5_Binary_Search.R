@@ -165,6 +165,7 @@ sum(stock_prices.list) / no_of_simulations
 put.prc.fft2 <- sum(put_prices.list) / no_of_simulations
 
 # Output both methods to table:
+# note both methods should output very similar results:
 values.table <- cbind(put.prc.fft1,put.prc.fft2)
 values.table
 

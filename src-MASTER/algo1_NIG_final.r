@@ -21,7 +21,7 @@ K = s0;
 T = 0.5; 
 N = 1.0; 
 
-no_of_simulations= 1024*10^3;       # change number of iterations here 
+no_of_simulations= 4096*10^3;       # change number of iterations here 
 
 # calculate mu using the formula given at the top of pg. 19
 mu = r - q + delta*(sqrt(alpha^2 - (beta+1)^2) - sqrt(alpha^2 - beta^2));
@@ -133,66 +133,77 @@ values.table
 # NIG Verification --------------------------------------------------------
 library(GeneralizedHyperbolic)      # testing our NIG model with GeneralizedHyperbolic built-in "rnig"
 
-nigv2 <- rnig(no_of_simulations, delta=delta, alpha=alpha, beta=beta)
-nigv1 <- nigv
+GenHyp.NIG <- rnig(no_of_simulations, delta=delta, alpha=alpha, beta=beta)+mu
+algo1.NIG <- nigv
 
 par(mfrow=c(1,2))       # Plot NIG distributions
 
 # GeneralizedHyperbolic NIG Histogram
-nigv2.hist <- hist(nigv2, breaks=40, col="grey", main="GeneralizedHyperbolic NIG")
-xfit <- seq(min(nigv2),max(nigv2),length=40)
-yfit <- dnorm(xfit, mean=mean(nigv2),sd=sd(nigv2))
-yfit <- yfit*diff(nigv2.hist$mids[1:2])*length(nigv2)
+GenHyp.NIG.hist <- hist(GenHyp.NIG, breaks=40, col="grey", main="GeneralizedHyperbolic NIG")
+xfit <- seq(min(GenHyp.NIG),max(GenHyp.NIG),length=40)
+yfit <- dnorm(xfit, mean=mean(GenHyp.NIG),sd=sd(GenHyp.NIG))
+yfit <- yfit*diff(GenHyp.NIG.hist$mids[1:2])*length(GenHyp.NIG)
 lines(xfit, yfit, col="blue", lwd=3)
 
 # Algorithm 1 NIG Histogram
-nigv1.hist <- hist(nigv1, breaks=40, col="grey", main="Algorithm 1 NIG")
-xfit <- seq(min(nigv1),max(nigv1),length=40)
-yfit <- dnorm(xfit, mean=mean(nigv1),sd=sd(nigv1))
-yfit <- yfit*diff(nigv1.hist$mids[1:2])*length(nigv1)
+algo1.NIG.hist <- hist(algo1.NIG, breaks=40, col="grey", main="Algorithm 1 NIG")
+xfit <- seq(min(algo1.NIG),max(algo1.NIG),length=40)
+yfit <- dnorm(xfit, mean=mean(algo1.NIG),sd=sd(algo1.NIG))
+yfit <- yfit*diff(algo1.NIG.hist$mids[1:2])*length(algo1.NIG)
 lines(xfit, yfit, col="blue", lwd=3)
 
-
 # NIG Mean Comparison
-nigv2.mu <- (mean(rnig(no_of_simulations,delta=delta, alpha=alpha, beta=beta)+mu))
-nigv2.mu
-nigv1.mu = mean(nigv)                  # our NIG 
-nigv1.mu
+GenHyp.NIG.mu <- (mean(rnig(no_of_simulations,delta=delta, alpha=alpha, beta=beta)+mu))
+GenHyp.NIG.mu
+algo1.NIG.mu = mean(nigv)                            # our NIG 
+algo1.NIG.mu
 
-nig_comparison_table <- cbind(nigv1.mu, nigv2.mu)
+nig_comparison_table <- cbind(algo1.NIG.mu, GenHyp.NIG.mu)
 nig_comparison_table
 
-# computed difference in models
-(nigv1.mu - nigv2.mu)/nigv2.mu                 
+(algo1.NIG.mu - GenHyp.NIG.mu)/GenHyp.NIG.mu         # computed difference in models
 
+values.table
+
+
+
+
+
+
+
+
+
+
+
+
+
+# FOR DEBUGGING ONLY ------------------------------------------------------
+# # Put-Call Parity Verification --------------------------------------------
+# # QuantLib Price of European Call option:
+# QuantLib_Call_Prc <- RQuantLib::EuropeanOption("c",s0,K,q,r,T,0.25)
+# QuantLib_Call_Prc
+# 
+# # Put-Call-Parity formula from scratch: Call Price
+# Call_Parity_Prc = euro_vanilla_put.value + s0*exp((-q * T)) - (K * exp(-r * T))
+# Call_Parity_Prc
+# 
+# # Put-Call-Parity formula from scratch: Put Price
+# Put_Parity_Prc = Call_Parity_Prc - (s0*exp((-q * T)) - (K * exp(-r * T)))
+# Put_Parity_Prc
+# Put_Parity_Table <- cbind(Put_Parity_Prc, NIG_Put_Prc)
+# 
+# nig_comparison_table
+# (algo1.NIG.mu - GenHyp.NIG.mu)/GenHyp.NIG.mu         # computed difference in models
+# Put_Parity_Table
 
 # RQuantLib Verification --------------------------------------------------
 # Use the EuropeanOption function of RQuantLib to calculate the Black-Scholes
 # price of the European Put (all inputs are identical to the NIG inputs above, except volatility)
-library(RQuantLib)
-QuantLib_Put_Prc <- EuropeanOption(type = "put", underlying = 100, strike = 100,
-                         dividendYield = 0.02, riskFreeRate = 0.05, maturity = 0.5, volatility = 0.2519)
-put_prices<-cbind(NIG_Put_Prc, QuantLib_Put_Prc)
-print("NIG Put Price vs Black-Scholes:")
-put_prices
-
-
-# Put-Call Parity Verification --------------------------------------------
-# QuantLib Price of European Call option:
-QuantLib_Call_Prc <- RQuantLib::EuropeanOption("c",s0,K,q,r,T,0.25)
-QuantLib_Call_Prc
-
-# Put-Call-Parity formula from scratch: Call Price
-Call_Parity_Prc = euro_vanilla_put.value + s0*exp((-q * T)) - (K * exp(-r * T))
-Call_Parity_Prc
-
-# Put-Call-Parity formula from scratch: Put Price
-Put_Parity_Prc = Call_Parity_Prc - (s0*exp((-q * T)) - (K * exp(-r * T)))
-Put_Parity_Prc
-
-Put_Parity_Table <- cbind(Put_Parity_Prc,NIG_Put_Prc,QuantLib_Put_Prc)
-Put_Parity_Table
-
-Call_Parity_Table <- cbind(Call_Parity_Prc,QuantLib_Call_Prc)
-Call_Parity_Table
-
+#library(RQuantLib)
+#QuantLib_Put_Prc <- EuropeanOption(type = "put", underlying = 100, strike = 100,
+#                         dividendYield = 0.02, riskFreeRate = 0.05, maturity = 0.5, volatility = 0.2519)
+#put_prices<-cbind(NIG_Put_Prc, QuantLib_Put_Prc)
+#print("NIG Put Price vs Black-Scholes:")
+#put_prices
+# Call_Parity_Table <- cbind(Call_Parity_Prc, QuantLib_Call_Prc)
+# Call_Parity_Table
