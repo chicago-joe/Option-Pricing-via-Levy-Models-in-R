@@ -1,6 +1,7 @@
 ###########################################################################
-# Pricing European Put Options Through Simulated Levy Processes 
-# Pseudocode implemented from Professor Liming Feng's Paper (pg. 17)
+#       Pricing European Put Options Through Simulated Levy Processes 
+#       Research proposed by Liming Feng, Zisheng Chen, and Xiong Lin
+#               University of Illinois, Urbana-Champaign
 #
 # Created by Joseph Loss on 12/17/2018
 # Co-developers: Yuchen Duan (UIUC MSFE) and Daniel Liberman (UIC Finance)
@@ -10,9 +11,9 @@
 ###########################################################################
 
 # Input Parameters --------------------------------------------------------
-# taken from Feng Paper pg. 22-23
-alpha = 23;                         # corrected parameter, alpha=15 from paper is incorrect
-beta = -5; 
+# taken from Feng et al, pg.22-23
+alpha = 23;                         # CORRECTED PARAMETER? 
+beta = -5;                          # Paper gave alpha=15, this generated an incorrect option price of $6.26  
 delta = 0.5; 
 r = 0.05; 
 q = 0.02; 
@@ -173,45 +174,7 @@ algo1.NIG.mu
 nig_comparison_table <- cbind(algo1.NIG.mu, GenHyp.NIG.mu)
 nig_comparison_table
 
-(algo1.NIG.mu - GenHyp.NIG.mu)/GenHyp.NIG.mu         # computed difference in models
+(algo1.NIG.mu - GenHyp.NIG.mu)/GenHyp.NIG.mu         # computed difference in model means
 
 values.table
 
-
-# Put-Call Parity Verification --------------------------------------------
-# Put-Call-Parity formula from scratch: Call Price
-Call_Parity_Prc = euro_vanilla_put.value + s0*exp((-q * T)) - (K * exp(-r * T))
-Call_Parity_Prc
-
-# Put-Call-Parity formula from scratch: Put Price
-Put_Parity_Prc = Call_Parity_Prc - (s0*exp((-q * T)) - (K * exp(-r * T)))
-Put_Parity_Prc
-Put_Parity_Table <- cbind(Put_Parity_Prc, NIG_Put_Prc)
-
-nig_comparison_table
-(algo1.NIG.mu - GenHyp.NIG.mu)/GenHyp.NIG.mu         # computed difference in models
-Put_Parity_Table
-
-
-
-
-
-
-
-# RQuantLib Verification --------------------------------------------------
-# Use the EuropeanOption function of RQuantLib to calculate the Black-Scholes
-# price of the European Put (all inputs are identical to the NIG inputs above, except volatility)
-#library(RQuantLib)
-
-#QuantLib_Put_Prc <- EuropeanOption(type = "put", underlying = 100, strike = 100,
-#                         dividendYield = 0.02, riskFreeRate = 0.05, maturity = 0.5, volatility = 0.2519)
-#put_prices<-cbind(NIG_Put_Prc, QuantLib_Put_Prc)
-#print("NIG Put Price vs Black-Scholes:")
-#put_prices
-
-# QuantLib Price of European Call option:
-# QuantLib_Call_Prc <- RQuantLib::EuropeanOption("c", s0, K, q, r, T, 0.25)
-# QuantLib_Call_Prc
-
-# Call_Parity_Table <- cbind(Call_Parity_Prc, QuantLib_Call_Prc)
-# Call_Parity_Table

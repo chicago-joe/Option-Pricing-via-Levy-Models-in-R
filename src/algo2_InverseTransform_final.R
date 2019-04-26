@@ -1,7 +1,8 @@
 ###########################################################################
-# Pricing European Put Options Through Simulated Levy Processes 
-# Pseudocode implemented from Professor Liming Feng's Paper (pg. 08)
-#
+#       Pricing European Put Options Through Simulated Levy Processes 
+#       Research proposed by Liming Feng, Zisheng Chen, and Xiong Lin
+#               University of Illinois, Urbana-Champaign
+# 
 # Created by Joseph Loss on 1/01/2019
 # Co-developers: Yuchen Duan (UIUC MSFE) and Daniel Liberman (UIC Finance)
 #
