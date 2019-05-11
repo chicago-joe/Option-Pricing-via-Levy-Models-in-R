@@ -98,23 +98,29 @@ for (j in 1:no_of_simulations)
     Xt[i] = mu * T + beta * zt[i] + sqrt(zt[i]) * G2[i]     # compute Xt = mu*t + beta*zt + sqrt(zt)*G2
     St[i] = s0 * exp(Xt[i])                         # from pg 16. compute St = S0 * e^(Xt)
   }
-
-  nigv[j] = Xt[N]                                       
   
   stock_prc[j] = St[N]                                  # reassign variable, ie St = ST (stock value at maturity)
-
   put_prc[j] = exp(-r*T) * max(0, K - stock_prc[j])     # compute put price at maturity 
+  call_prc[j] = exp(-r*T) * max(0, stock_prc[j] - K)    # compute call price at maturity
+  nigv[j] = Xt[N]                                       
+
   
 # Section 5.4, pg.19: European Vanilla Options -------------------------------------------
-  # Calculate the option value "V" using the formula given in Section 5.4.
-  euro_vanilla_put[j] = s0 * exp(-r * T) * max(0, K/s0 - exp(log(St[N] / s0)))
+  # We also calculate the option value "V" using the formula given in Section 5.4.
+  
   # note that the resulting output is identical 
+  # to the result we generated through St = S0 * e^(Xt) above. 
+    euro_vanilla_put[j] = s0 * exp(-r * T) * max(0, K/s0 - exp(log(stock_prc[j] / s0)))
   
 }
 # END MonteCarlo Simulation --------------------------------------------------------------
 # ----------------------------------------------------------------------------------------
 
+
 # Average the computed prices: -----------------------------------------------------------
+"NIG Stock Price (t=T)"
+sum(stock_prc) / no_of_simulations
+
 NIG_Put_Prc <- sum(put_prc) / no_of_simulations
 "NIG Put Value: " 
 NIG_Put_Prc
@@ -125,9 +131,6 @@ euro_vanilla_put.value
 
 values.table <- cbind(NIG_Put_Prc, euro_vanilla_put.value)
 values.table
-
-"NIG Stock Price (t=T)"
-sum(stock_prc) / no_of_simulations
 
 
 # Model Benchmarking & Verification ------------------------------------------------------------------
@@ -176,4 +179,3 @@ nig_comparison_table
 values.table
 
 RQuantLib::EuropeanOption('put',s0,K,q,r,T,0.191)
-
