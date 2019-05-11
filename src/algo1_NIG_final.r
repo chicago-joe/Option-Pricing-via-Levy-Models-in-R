@@ -12,7 +12,7 @@
 
 # Input Parameters --------------------------------------------------------
 # taken from Feng et al, pg.22-23
-alpha = 23;                         # CORRECTED PARAMETER? 
+alpha = 15;                         # CORRECTED PARAMETER? 
 beta = -5;                          # Paper gave alpha=15, this generated an incorrect option price of $6.26  
 delta = 0.5; 
 r = 0.05; 
@@ -58,13 +58,13 @@ BoxMuller <- function()
 for (j in 1:no_of_simulations) 
 {
   # Step 1: Generate G1 and compute zeta --------------------------------------------------
-  G1 <- rnorm(1, 0, 1)           # generate standard normal random variable G1
+  G1 <- BoxMuller()           # generate standard normal random variable G1
   Z <- (G1^2)/gamma              # compute Z
   
   zeta <- rep(0, N)
   for (i in 1:N) 
     {
-    zeta[i] = (1/gamma)*((delta*i) + (0.5*Z[i]) - sqrt((delta*i*Z[i]) + (Z[i]^2)/4))  
+    zeta[i] = (1/gamma)*((delta*T) + (0.5*Z[i]) - sqrt((delta*T*Z[i]) + (Z[i]^2)/4))  
     }
   
   
@@ -75,10 +75,10 @@ for (j in 1:no_of_simulations)
     zt <- rep(0, N)
     for (i in 1:N)  
       {
-      if (U[i] < (delta) / (delta + gamma * zeta[i])) {
+      if (U[i] < (delta*T) / ((delta*T) + gamma * zeta[i])) {
         zt[i] = zeta[i]
         } else  {
-        zt[i] = (delta ^ 2) / (gamma ^ 2 * zeta[i])
+        zt[i] = (delta ^ 2 * T^2) / (gamma ^ 2 * zeta[i])
         }
     }
     return(zt)
@@ -95,32 +95,26 @@ for (j in 1:no_of_simulations)
   
   for (i in 1:N)
   {
-    Xt[i] = mu * i + beta * zt[i] + sqrt(zt[i]) * G2[i]     # compute Xt = mu*t + beta*zt + sqrt(zt)*G2
+    Xt[i] = mu * T + beta * zt[i] + sqrt(zt[i]) * G2[i]     # compute Xt = mu*t + beta*zt + sqrt(zt)*G2
     St[i] = s0 * exp(Xt[i])                         # from pg 16. compute St = S0 * e^(Xt)
   }
+
+  nigv[j] = Xt[N]                                       
   
   stock_prc[j] = St[N]                                  # reassign variable, ie St = ST (stock value at maturity)
-  put_prc[j] = exp(-r*T) * max(0, K - stock_prc[j])     # compute put price at maturity 
-  call_prc[j] = exp(-r*T) * max(0, stock_prc[j] - K)    # compute call price at maturity
-  nigv[j] = Xt[N]                                       
 
+  put_prc[j] = exp(-r*T) * max(0, K - stock_prc[j])     # compute put price at maturity 
   
 # Section 5.4, pg.19: European Vanilla Options -------------------------------------------
-  # We also calculate the option value "V" using the formula given in Section 5.4.
-  
+  # Calculate the option value "V" using the formula given in Section 5.4.
+  euro_vanilla_put[j] = s0 * exp(-r * T) * max(0, K/s0 - exp(log(St[N] / s0)))
   # note that the resulting output is identical 
-  # to the result we generated through St = S0 * e^(Xt) above. 
-    euro_vanilla_put[j] = s0 * exp(-r * T) * max(0, K/s0 - exp(log(stock_prc[j] / s0)))
   
 }
 # END MonteCarlo Simulation --------------------------------------------------------------
 # ----------------------------------------------------------------------------------------
 
-
 # Average the computed prices: -----------------------------------------------------------
-"NIG Stock Price (t=T)"
-sum(stock_prc) / no_of_simulations
-
 NIG_Put_Prc <- sum(put_prc) / no_of_simulations
 "NIG Put Value: " 
 NIG_Put_Prc
@@ -131,6 +125,9 @@ euro_vanilla_put.value
 
 values.table <- cbind(NIG_Put_Prc, euro_vanilla_put.value)
 values.table
+
+"NIG Stock Price (t=T)"
+sum(stock_prc) / no_of_simulations
 
 
 # Model Benchmarking & Verification ------------------------------------------------------------------
@@ -177,4 +174,6 @@ nig_comparison_table
 (algo1.NIG.mu - GenHyp.NIG.mu)/GenHyp.NIG.mu         # computed difference in model means
 
 values.table
+
+RQuantLib::EuropeanOption('put',s0,K,q,r,T,0.191)
 
