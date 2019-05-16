@@ -13,10 +13,13 @@
 times <- matrix(rep(0,9), 3, 3)
 
 no_of_simulations.1 <-  256 * 10 ^ 3     # change number of MC iteriations here
-no_of_simulations.2 <- 256 * 4 * 10 ^ 3
-no_of_simulations.3 <- 256 * 8 * 10 ^ 3
+no_of_simulations.2 <- (256 * 4) * 10 ^ 3
+no_of_simulations.3 <- (256 * 8) * 10 ^ 3
+no_of_simulations.4 <- (256 * 16) * 10 ^ 3
+no_of_simulations.5 <- (256 * 32) * 10 ^ 3
+no_of_simulations.6 <- (256 * 64) * 10 ^ 3
 
-no_of_simulations.all <- c(no_of_simulations.1, no_of_simulations.2, no_of_simulations.3)
+no_of_simulations.list <- c(no_of_simulations.1, no_of_simulations.2, no_of_simulations.3, no_of_simulations.4, no_of_simulations.5, no_of_simulations.6)
 
 
 # Brute-Force-Search function: chi ------------------------------------
@@ -123,7 +126,7 @@ inverse_transform_method <- function() {
 
 
 #For Loop
-for(i in 1:3){
+for(i in 3:3){
   no_of_simulations <- no_of_simulations.all[i]
   #NIG Method
   #Define Variables
@@ -137,7 +140,7 @@ for(i in 1:3){
   T = 0.5; 
   N = 1.0; 
   
-  no_of_simulations= 4096 * 10^3;       # change number of iterations here 
+  # no_of_simulations= 4096 * 10^3;       # change number of iterations here 
   
   # calculate mu using the formula given at the top of pg. 19
   mu = r - q + delta*(sqrt(alpha^2 - (beta+1)^2) - sqrt(alpha^2 - beta^2));

@@ -9,142 +9,164 @@
 # Algorithm 2: Inverse-Transform Algorithm
 #
 ###########################################################################
-# Inital Parameters  -------------------------------------------------------------
-# taken from Feng, Table 1 pg. 23
-chi.0 = -0.477
-chi.K = 0
-K = 22
+# set.seed(2017)
+library(tictoc)
 
-# Inverse Transform Method: Parameters -------------------------------
-# taken from Feng, Section 6.1 pg. 22
-s0 = 100
-strike = 100
-T = 0.5
-r = 0.03
-no_of_simulations = 4096 * 10 ^ 3     # change number of MC iteriations here
+no_of_simulations.1 <-  256 * 10 ^ 3     
+no_of_simulations.2 <- (256 * 4) * 10 ^ 3
+no_of_simulations.3 <- (256 * 8) * 10 ^ 3
+no_of_simulations.4 <- (256 * 16) * 10 ^ 3
+no_of_simulations.5 <- (256 * 32) * 10 ^ 3
+no_of_simulations.6 <- (256 * 64) * 10 ^ 3
+no_of_simulations.list <- c(no_of_simulations.1, no_of_simulations.2, 
+                            no_of_simulations.3, no_of_simulations.4, 
+                            no_of_simulations.5, no_of_simulations.6)
 
-
-# List Function (for initializing variable arrays) ------------------------
-seqlist <- function(a, b, n)  {
-  list1 <- rep(0, n)
-  list1[1] = a
-  list1[n] = b
-  for (i in 2:(n - 1)) {
-    list1[i] = (list1[n] - list1[i - 1]) * .326 + list1[i - 1]
-  }
-  return(list1)
-}
-
-
-# Initialize Variable Arrays ----------------------------------------------
-chi.list = seqlist(chi.0, chi.K, K + 1)
-Fhat.list = seq(0, 1, by = (1) / K)
-eta = (Fhat.list[K + 1] - Fhat.list[1]) / K
-Fhat.list
-
-# Brute-Force-Search function: chi ------------------------------------
-# input = -0.1
-brute_force_search.chi <- function(input) {
-  stock_prices.list = 0
-  for (variable in chi.list) {
-    if (variable > input)  {
-      return(stock_prices.list)
-    }
-    stock_prices.list = stock_prices.list + 1
-  }
-}
-
-# Brute-Force-Search function: Fhat ------------------------------------
-brute_force_search.Fhat <- function(input)  {
-  stock_prices.list = 0
-  for (variable in Fhat.list) {
-    if (variable > input)  {
-      return(stock_prices.list)
-    }
-    stock_prices.list = stock_prices.list + 1
-  }
-}
-
-#Binary Search
-binary_search <- function(values, input, start, end) {
-  mid = floor((start + end) / 2)
-  if (values[mid] <= input && values[mid + 1] >= input) {
-    return(mid)
-  }
-  if (values[mid] > input) {
-    end = mid
-    return(binary_search(values, input, start, end))
-  }
-  if (values[mid] < input) {
-    start = mid
-    return(binary_search(values, input, start, end))
-  }
-}
-
-# Fhat Distribution Function ----------------------------------------------
-# piecewise function for Fhat(x) taken from Feng, pg. 8 (Equation 3.12)
-Fhat.distribution <- function(input)
+for (i in 1:6)
 {
-  stock_prices.list = 0
-  if (input < chi.list[1])
-    # x < x0
+  
+  # Inital Parameters  -------------------------------------------------------------
+  chi.0 = -0.477;         # Feng, Table 1, pg. 23
+  chi.K = 0;              # Feng, Table 1, pg. 23
+  K = 22;                 # Feng, Table 1, pg. 23
+  s0 = 100;               # Feng, Section 6.1, pg. 22
+  strike = 100;           # Feng, Section 6.1, pg. 22
+  T = 0.5;                # Feng, Section 6.1, pg. 22
+  q = 0.02;               # Feng, Section 6.1, pg. 22
+  r = 0.05 - q;           # Feng, Section 6.1, pg. 22
+  
+  # r = 0.03;           # Feng, Section 6.1, pg. 22
+  
+  no_of_simulations = no_of_simulations.list[i]     # change number of MC iteriations here
+  tic(no_of_simulations)
+  
+  # List Function (for initializing variable arrays) ------------------------
+  seqlist <- function(a, b, n)  {
+    list1 <- rep(0, n)
+    list1[1] = a
+    list1[n] = b
+    for (i in 2:(n - 1)) {
+      list1[i] = (list1[n] - list1[i - 1]) * .326 + list1[i - 1]
+    }
+    return(list1)
+  }
+  
+  
+  # Initialize Variable Arrays ----------------------------------------------
+  chi.list = seqlist(chi.0, chi.K, K + 1)
+  Fhat.list = seq(0, 1, by = (1) / K)
+  eta = (Fhat.list[K + 1] - Fhat.list[1]) / K
+  Fhat.list
+  
+  # Brute-Force-Search function: chi ------------------------------------
+  # input = -0.1
+  brute_force_search.chi <- function(input) {
+    stock_prices.list = 0
+    for (variable in chi.list) {
+      if (variable > input)  {
+        return(stock_prices.list)
+      }
+      stock_prices.list = stock_prices.list + 1
+    }
+  }
+  
+  # Brute-Force-Search function: Fhat ------------------------------------
+  brute_force_search.Fhat <- function(input)  {
+    stock_prices.list = 0
+    for (variable in Fhat.list) {
+      if (variable > input)  {
+        return(stock_prices.list)
+      }
+      stock_prices.list = stock_prices.list + 1
+    }
+  }
+  
+  #Binary Search
+  binary_search <- function(values, input, start, end) {
+    mid = floor((start + end) / 2)
+    if (values[mid] <= input && values[mid + 1] >= input) {
+      return(mid)
+    }
+    if (values[mid] > input) {
+      end = mid
+      return(binary_search(values, input, start, end))
+    }
+    if (values[mid] < input) {
+      start = mid
+      return(binary_search(values, input, start, end))
+    }
+  }
+  
+  # Fhat Distribution Function ----------------------------------------------
+  # piecewise function for Fhat(x) taken from Feng, pg. 8 (Equation 3.12)
+  Fhat.distribution <- function(input)
   {
     stock_prices.list = 0
+    if (input < chi.list[1])
+      # x < x0
+    {
+      stock_prices.list = 0
+      return(stock_prices.list)
+    }
+    else if (input >= chi.list[K + 1])
+      # x > 0 xK
+    {
+      stock_prices.list = 1
+      return(stock_prices.list)
+    }
+    else
+      # (xk-1) <= chi
+    {
+      xk_1 =  binary_search(chi.list, input, 1, length(chi.list))
+      #print(binary_search(chi.list,input,1,length(chi.list)))# xk = bs(input);
+      #xk_1 = brute_force_search.chi(input)
+      #print(brute_force_search.chi(input))
+      
+      # Fhat[k-1] location:
+      stock_prices.list = Fhat.list[xk_1] + (Fhat.list[xk_1 + 1] - Fhat.list[xk_1]) /
+        eta * (input - chi.list[xk_1])
+    }
     return(stock_prices.list)
   }
-  else if (input >= chi.list[K + 1])
-    # x > 0 xK
-  {
-    stock_prices.list = 1
-    return(stock_prices.list)
-  }
-  else
-    # (xk-1) <= chi
-  {
-    xk_1 =  binary_search(chi.list, input, 1, length(chi.list))
-    #print(binary_search(chi.list,input,1,length(chi.list)))# xk = bs(input);
-    #xk_1 = brute_force_search.chi(input)
-    #print(brute_force_search.chi(input))
-    
-    # Fhat[k-1] location:
-    stock_prices.list = Fhat.list[xk_1] + (Fhat.list[xk_1 + 1] - Fhat.list[xk_1]) /
-      eta * (input - chi.list[xk_1])
-  }
-  return(stock_prices.list)
-}
-
-# Inverse Transform Function ------------------------------------------------
-# Approximation to F-1(U) using brute-force search
-inverse_transform_method <- function() {
-  U = runif(1,0,1)
-  xk_1 = binary_search(Fhat.list, U, 1, length(Fhat.list))
   
-  if (xk_1 < (K-1)) {                   # function returns K-1
-    return(chi.list[xk_1 + 1] + (chi.list[xk_1 + 2] - chi.list[xk_1 + 1]) / 
-             (Fhat.list[xk_1 + 2] - Fhat.list[xk_1 + 1]) * (U - Fhat.list[xk_1 + 1]))
-  } else {
-    return(0) 
+  # Inverse Transform Function ------------------------------------------------
+  # Approximation to F-1(U) using brute-force search
+  inverse_transform_method <- function() {
+    U = runif(1,0,1)
+    xk_1 = binary_search(Fhat.list, U, 1, length(Fhat.list))
+    
+    if (xk_1 < (K-1)) {                   # function returns K-1
+      return(chi.list[xk_1 + 1] + (chi.list[xk_1 + 2] - chi.list[xk_1 + 1]) / 
+               (Fhat.list[xk_1 + 2] - Fhat.list[xk_1 + 1]) * (U - Fhat.list[xk_1 + 1]))
+    } else {
+      return(0) 
+    }
   }
+  Xt = inverse_transform_method()
+  
+  # initialize price lists
+  stock_prices.list <- rep(0, no_of_simulations)
+  put_prices.list <- rep(0, no_of_simulations)
+  
+  # Inverse Transform Method 1 -----------------------------------------------
+  # Calculate V using Section 5.4 of Feng's Paper (pg.19)
+  put_prcs <- rep(0, no_of_simulations)
+  for (j in 1:no_of_simulations) {
+    put_prcs[j] = s0 * exp(-r*T) * max(0, strike/s0 - exp(inverse_transform_method()))
+  }
+  
+  # Method 1 Result
+  put_prc.InvT <- sum(put_prcs) / no_of_simulations
+  
+  toc(log = TRUE)
+  tic.clearlog()
+  tic.clear()
 }
-Xt = inverse_transform_method()
+# END  --------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
-# initialize price lists
-stock_prices.list <- rep(0, no_of_simulations)
-put_prices.list <- rep(0, no_of_simulations)
-
-# Inverse Transform Method 1 -----------------------------------------------
-# Calculate V using Section 5.4 of Feng's Paper (pg.19)
-put_prcs <- rep(0, no_of_simulations)
-for (j in 1:no_of_simulations) {
-  put_prcs[j] = s0 * exp(-r*T) * max(0, strike/s0 - exp(inverse_transform_method()))
-}
-
-# Method 1 Result
-put_prc.InvT <- sum(put_prcs) / no_of_simulations
 
 plot(chi.list)
-# END  --------------------------------------------------------------------
-
 
 # OPTIONAL: Inverse Transform Method 2 ----------------------------------------------
 # uses default calculation for option price: V = e^(-r*T) * max(0, K - St)
