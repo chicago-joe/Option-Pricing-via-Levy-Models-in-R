@@ -137,15 +137,15 @@ for (i in 1:6)
   sum(stock_prc) / no_of_simulations
   
   # NIG_Put_Prc <- sum(put_prc) / no_of_simulations
-  # "NIG Put Value: " 
-  # NIG_Put_Prc
+  "NIG Put Value: "
+  NIG_Put_Prc
   
   euro_vanilla_put.value <- sum(euro_vanilla_put) / no_of_simulations
   "European Vanilla Put Value: " 
   euro_vanilla_put.value
   
-  # values.table <- cbind(NIG_Put_Prc, euro_vanilla_put.value)
-  # values.table
+  values.table <- cbind(NIG_Put_Prc, euro_vanilla_put.value)
+  values.table
   
   toc(log = TRUE)
   tic.clearlog()

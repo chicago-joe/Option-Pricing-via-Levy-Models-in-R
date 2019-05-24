@@ -11,7 +11,7 @@
 
 # Input Parameters --------------------------------------------------------
 # taken from Feng Paper pg. 22-23
-alpha = 23;                             # corrected parameter, alpha=15 from paper is incorrect
+alpha = 15;                             # corrected parameter, alpha=15 from paper is incorrect
 beta = -5; 
 delta = 0.5; 
 r = 0.05; 
@@ -21,7 +21,7 @@ K = s0;
 T = 0.5; 
 N = 1.0; 
 
-no_of_simulations= 4096*10^3;       # change number of iterations here 
+no_of_simulations= (256*64)*10^3;       # change number of iterations here 
 
 # calculate mu using the formula given at the top of pg. 19
 mu = r - q + delta*(sqrt(alpha^2 - (beta+1)^2) - sqrt(alpha^2 - beta^2));

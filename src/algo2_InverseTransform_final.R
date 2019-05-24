@@ -37,7 +37,8 @@ for (i in 1:6)
   
   # r = 0.03;           # Feng, Section 6.1, pg. 22
   
-  no_of_simulations = no_of_simulations.list[i]     # change number of MC iteriations here
+  no_of_simulations = no_of_simulations.6     # change number of MC iteriations here
+  # no_of_simulations = no_of_simulations.list[i]     # change number of MC iteriations here
   tic(no_of_simulations)
   
   # List Function (for initializing variable arrays) ------------------------
