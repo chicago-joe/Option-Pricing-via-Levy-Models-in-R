@@ -37,7 +37,8 @@ for (i in 1:6)
   T = 0.5; 
   N = 1.0; 
   
-  no_of_simulations = no_of_simulations.list[i];       # change number of iterations here 
+  # no_of_simulations = no_of_simulations.list[i];       # run through difference total no_of_simulations back-to-back
+  no_of_simulations = no_of_simulations.3;       # change number of iterations here
   
   # calculate mu using the formula given at the top of pg. 19
   mu = r - q + delta*(sqrt(alpha^2 - (beta+1)^2) - sqrt(alpha^2 - beta^2));
@@ -130,27 +131,30 @@ for (i in 1:6)
   }
   # END MonteCarlo Simulation --------------------------------------------------------------
   # ----------------------------------------------------------------------------------------
-  
+}
   
   # Average the computed prices: -----------------------------------------------------------
   "NIG Stock Price (t=T)"
   sum(stock_prc) / no_of_simulations
   
+  NIG_Put_Value <- sum(euro_vanilla_put) / no_of_simulations
+  "NIG Put Value: " 
+  NIG_Put_Value
+  
   # NIG_Put_Prc <- sum(put_prc) / no_of_simulations
-  "NIG Put Value: "
-  NIG_Put_Prc
+  # "NIG Put Value: "
+  # NIG_Put_Prc
+  # euro_vanilla_put.value <- sum(euro_vanilla_put) / no_of_simulations
+  # "European Vanilla Put Value: "
+  # euro_vanilla_put.value
   
-  euro_vanilla_put.value <- sum(euro_vanilla_put) / no_of_simulations
-  "European Vanilla Put Value: " 
-  euro_vanilla_put.value
-  
-  values.table <- cbind(NIG_Put_Prc, euro_vanilla_put.value)
-  values.table
+  # values.table <- cbind(NIG_Put_Prc, euro_vanilla_put.value)
+  # values.table
   
   toc(log = TRUE)
   tic.clearlog()
   tic.clear()
-}
+
 
 
 # Model Benchmarking & Verification ------------------------------------------------------------------
@@ -196,6 +200,6 @@ nig_comparison_table
 
 (algo1.NIG.mu - GenHyp.NIG.mu)/GenHyp.NIG.mu         # computed difference in model means
 
-values.table
+nig_comparison_table
 
-RQuantLib::EuropeanOption('put',s0,K,q,r,T,0.191)
+# RQuantLib::EuropeanOption('put',s0,K,q,r,T,0.191)

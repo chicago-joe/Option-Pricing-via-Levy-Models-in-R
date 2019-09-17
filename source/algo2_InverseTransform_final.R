@@ -37,9 +37,11 @@ for (i in 1:6)
   
   # r = 0.03;           # Feng, Section 6.1, pg. 22
   
-  no_of_simulations = no_of_simulations.6     # change number of MC iteriations here
-  # no_of_simulations = no_of_simulations.list[i]     # change number of MC iteriations here
-  tic(no_of_simulations)
+  
+  # no_of_simulations = no_of_simulations.list[i];       # run through difference total no_of_simulations back-to-back
+  no_of_simulations = no_of_simulations.5                # change number of MC iteriations here
+  
+  # tic(no_of_simulations)
   
   # List Function (for initializing variable arrays) ------------------------
   seqlist <- function(a, b, n)  {
@@ -172,19 +174,19 @@ plot(chi.list)
 # OPTIONAL: Inverse Transform Method 2 ----------------------------------------------
 # uses default calculation for option price: V = e^(-r*T) * max(0, K - St)
 for (j in 1:no_of_simulations) 
-  {
+{
   Xt = inverse_transform_method()
   stock_prices.list[j] = s0 * exp(Xt)
   put_prices.list[j] = exp(-r * T) * max(0, strike - stock_prices.list[j])
-  }
+}
 
 # Method 2 Result
 sum(stock_prices.list) / no_of_simulations
-put.prc.fft2 <- sum(put_prices.list) / no_of_simulations
+put_prc.method2 <- sum(put_prices.list) / no_of_simulations
 
 # Output both methods to table:
 # note both methods should output very similar results:
-values.table <- cbind(put_prc.InvT, put.prc.fft2)
+values.table <- cbind(put_prc.InvT, put_prc.method2)
 values.table
 
 
@@ -207,7 +209,7 @@ quantlib.bsm.put.prc <-
     volatility = 0.19
   )
 
-put_prices <- cbind(put.prc.fft1, quantlib.bsm.put.prc)
+put_prices <- cbind(put_prc.InvT, quantlib.bsm.put.prc)
 
 print("NIG Put Price vs Black-Scholes:")
 put_prices
