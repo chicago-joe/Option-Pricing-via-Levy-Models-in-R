@@ -1,0 +1,258 @@
+/* Base font settings to match book-theme template */
+:root {
+  --book-font-size: 1rem;
+  --book-line-height: 1.6;
+  --book-paragraph-spacing: 1.25rem;
+  --book-heading-spacing: 2rem;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+  font-size: var(--book-font-size);
+  line-height: var(--book-line-height);
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Main wrapper - ensure it can accommodate our wide elements */
+.myst-page {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Typography scaling for the book theme */
+.myst-content h1 {
+  font-size: 2.25rem !important;
+  margin-bottom: 1.75rem !important;
+  font-weight: 600 !important;
+}
+
+.myst-content h2 {
+  font-size: 1.8rem !important;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1.25rem !important;
+  font-weight: 600 !important;
+}
+
+.myst-content h3 {
+  font-size: 1.5rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 600 !important;
+}
+
+.myst-content h4 {
+  font-size: 1.25rem !important;
+  margin-top: 1.75rem !important;
+  margin-bottom: 0.75rem !important;
+  font-weight: 600 !important;
+}
+
+.myst-content p, 
+.myst-content li {
+  font-size: 1.05rem !important;
+  margin-bottom: var(--book-paragraph-spacing) !important;
+  line-height: 1.6 !important;
+}
+
+.myst-content code, 
+.myst-content pre {
+  font-family: "SFMono-Regular", Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Make images larger */
+.myst-content img {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 1.5rem 0;
+}
+
+/* For figures with captions */
+.myst-content figure {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 2rem 0;
+}
+
+.myst-content figcaption {
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  margin-top: 0.75rem !important;
+}
+
+/* Code blocks styling */
+.myst-content pre {
+  padding: 1rem !important;
+  margin: 1.5rem 0 !important;
+  border-radius: 4px !important;
+  background-color: #f5f7f9 !important;
+}
+
+/* Inline code styling */
+.myst-content p code,
+.myst-content li code {
+  padding: 0.15rem 0.3rem !important;
+  border-radius: 3px !important;
+  background-color: #f5f7f9 !important;
+}
+
+/* Full-width class for MyST directives */
+.full-width {
+  width: 100% !important;
+  position: relative !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  padding: 2rem !important;
+  background-color: #f9f9fc !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Layout for left TOC and main content */
+.myst-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr) 300px;
+  grid-gap: 2rem;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* TOC styling */
+.myst-toc {
+  grid-column: 1;
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  padding-right: 1rem;
+  font-size: 0.95rem !important;
+  line-height: 1.4 !important;
+}
+
+.myst-toc a {
+  color: #374151 !important;
+  text-decoration: none !important;
+}
+
+.myst-toc a:hover {
+  color: #1a56db !important;
+  text-decoration: underline !important;
+}
+
+/* Main content area */
+.myst-content {
+  grid-column: 2;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 1rem;
+  overflow-x: visible !important;
+}
+
+/* Tables should be full width and scroll on overflow */
+table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed !important;
+  overflow-x: auto;
+  display: block;
+  font-size: 0.95rem !important;
+  margin: 1.75rem 0 !important;
+  border-collapse: collapse !important;
+}
+
+table th {
+  background-color: #f5f7f9 !important;
+  font-weight: 600 !important;
+  padding: 0.75rem !important;
+  text-align: left !important;
+  border-bottom: 2px solid #e5e7eb !important;
+}
+
+table td {
+  padding: 0.75rem !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+  .myst-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .myst-toc {
+    grid-column: 1;
+    position: relative;
+    max-height: none;
+  }
+  
+  .myst-content {
+    grid-column: 1;
+    padding-right: 0;
+  }
+  
+  .full-width {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  .myst-content h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  .myst-content h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .myst-content h3 {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* Additional book theme specific styles */
+.sd-card {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 1.5rem !important;
+  margin: 1rem 0 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Admonitions */
+.admonition {
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+.admonition-title {
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Buttons */
+.myst-content a.button-link,
+.myst-content .sd-btn {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-weight: 500 !important;
+  transition: background-color 0.2s !important;
+}
+
+.myst-content a.button-link:hover,
+.myst-content .sd-btn:hover {
+  background-color: #2563eb !important;
+}
