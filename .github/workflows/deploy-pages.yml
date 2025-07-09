@@ -3,21 +3,21 @@ name: MyST GitHub Pages Deploy
 on:
   workflow_dispatch:
 
-env:
-  BASE_URL: /${{ github.event.repository.name }}
+# env:
+  # BASE_URL: /${{ github.event.repository.name }}
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+# concurrency:
+  # group: "pages"
+  # cancel-in-progress: true
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
