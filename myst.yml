@@ -1,0 +1,49 @@
+version: 1
+project:
+  id: option-pricing-levy-models
+  title: "Options Pricing in Discrete Lévy Models"
+  description: "Research on algorithms for options pricing using Normal Inverse Gaussian process vs the Inverse-Transform Method"
+  keywords: [options pricing, Lévy models, NIG process, inverse transform, quantitative finance, R programming]
+  authors:
+    - name: Joseph Loss
+      email: connect@josephjloss.com
+      url: https://josephjloss.com
+      github: chicago-joe
+    - name: Yuchen Duan
+    - name: Daniel Liberman
+  github: https://github.com/chicago-joe/Option-Pricing-via-Levy-Models
+  exports:
+    - format: pdf
+      template: lapreprint-typst
+      output: exports/option-pricing-research.pdf
+  toc:
+    - title: Home
+      file: index.md
+    - title: Academic Paper
+      file: academic-paper.md
+    - title: R/Finance Presentation
+      file: presentation-slides.md
+
+site:
+  template: book-theme
+  title: "Options Pricing in Lévy Models"
+  logo: assets/logo.png
+  nav:
+    - title: My Website
+      url: https://josephjloss.com
+    - title: LinkedIn
+      url: https://linkedin.com/in/josephjl
+    - title: GitHub
+      url: https://github.com/chicago-joe
+  actions:
+    - title: View on GitHub
+      url: https://github.com/chicago-joe/Option-Pricing-via-Levy-Models
+    - title: Download Research Proposal
+      url: documentation/Project Research Proposal.pdf
+  options:
+    style: ./_static/custom.css
+  parts:
+    footer: |
+      © 2025 Joseph Loss, Yuchen Duan, Daniel Liberman. All rights reserved.
+      Research conducted at Illinois Institute of Technology.
+      [View Source Code](https://github.com/chicago-joe/Option-Pricing-via-Levy-Models)
