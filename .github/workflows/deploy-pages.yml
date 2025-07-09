@@ -1,8 +1,11 @@
 name: MyST GitHub Pages Deploy
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
-
+  
 # env:
   # BASE_URL: /${{ github.event.repository.name }}
 
@@ -11,9 +14,9 @@ permissions:
   pages: write
   id-token: write
 
-# concurrency:
-  # group: "pages"
-  # cancel-in-progress: true
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   deploy:
