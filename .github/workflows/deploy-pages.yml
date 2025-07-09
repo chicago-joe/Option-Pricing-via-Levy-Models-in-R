@@ -61,12 +61,6 @@ jobs:
       - name: Prepare Directories
         run: mkdir -p exports
 
-      - name: Build PDF Assets (with execution)
-        run: |
-          myst build iceberg-prediction-whitepaper-v2.md --pdf --execute
-          myst build index.md --pdf --execute
-          myst build hyperparameter-optimization-whitepaper.md --pdf --execute
-          
       - name: Build HTML Assets (with execution)
         run: myst build --execute -d --html --md
               
