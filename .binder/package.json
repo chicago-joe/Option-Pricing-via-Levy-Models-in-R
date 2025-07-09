@@ -1,0 +1,19 @@
+{
+  "name": "iceberg-order-prediction-algorithm",
+  "version": "1.0.0",
+  "description": "Quantitative Trading with ML - Iceberg Order Prediction Algorithm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@myst-theme/providers": "*",
+    "cwebp-bin": "*",
+    "mystmd": "*",
+    "express": "*",
+    "puppeteer": "*",
+    "react": "*",
+    "react-dom": "*",
+    "recharts": "*"
+  }
+}

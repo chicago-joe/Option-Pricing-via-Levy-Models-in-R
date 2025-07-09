@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "Starting postBuild script"
+
+# Ensure the script is executable
+chmod +x "${0}"
+
+# Set paths
+export PATH="${HOME}/.local/bin:${PATH}"
+
+# for pdf image exports
+#wget --output-document ~/.local/bin/magick.rpm https://imagemagick.org/archive/linux/CentOS/x86_64/ImageMagick-7.1.1-47.x86_64.rpm
+#wget --output-document ~/.local/bin/magick-libs.rpm https://imagemagick.org/archive/linux/CentOS/x86_64/ImageMagick-libs-7.1.1-47.x86_64.rpm
+#alien ~/.local/bin/magick.rpm && alien ~/.local/bin/magick-libs.rpm
+#rm -rf ~/.local/bin/*.rpm && dpkg -i ~/.local/bin/*.deb
+
+# Install Typst via the official installer
+echo "Installing Typst"
+curl -fsSL https://typst.community/typst-install/install.sh | sh && \
+    echo 'export PATH="$HOME/.typst:$PATH"' >> /etc/profile && \
+    echo 'export PATH="$HOME/.typst:$PATH"' >> ~/.bashrc
+
+# Set environment variables
+export PATH="${HOME}/.typst:${PATH}"
+export PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium"
+
+# Install Python dependencies - try with uv first, fallback to pip
+cd ~
+
+echo "Installing Python dependencies"
+if which uv; then
+  uv sync --all-extras --check --no-cache || uv pip install --no-cache-dir -e .
+else
+  echo "Error with uv"
+fi
+
+# Build JupyterLab - try with uv first, fallback to jupyter directly
+echo "Building JupyterLab"
+if which uv; then
+  uv run --no-cache jupyter lab build --dev-build=False || echo "jupyter lab build failed"
+else
+  echo "uv can't launch jupyter lab. See logs"
+fi
+
+echo "postBuild script completed"
