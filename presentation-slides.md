@@ -1,7 +1,7 @@
 ---
 title: "R/Finance Presentation"
-subtitle: "Options Pricing in Discrete Lévy Models"
-date: 2025-01-18
+author: "Joseph Loss, Yuchen Duan, Daniel Liberman"
+date: "2025-01-18"
 ---
 
 # R/Finance Conference Presentation
@@ -10,30 +10,103 @@ date: 2025-01-18
 
 This R/Finance conference presentation showcases our comprehensive research on options pricing in discrete Lévy models with practical implementation results and performance analysis.
 
-```{figure} assets/rfinance-conference.png
-:width: 700px
-:align: center
-:alt: R/Finance Conference
+:::{admonition} Conference Presentation
+:class: note
 
-R/Finance Conference - Applied Finance with R
+A lecture on drastically improving computation speeds by simulating tabulated probabilities via an Inverse-Transform approach. This presentation demonstrates practical R implementations and performance comparisons.
+:::
+
+## Presentation Slides
+
+### Slide 1: Introduction
+
+:::{.full-width}
+```{figure} documentation/misc/Slide1.PNG
+:width: 100%
+:align: center
+:alt: Slide 1
+
+Introduction to Options Pricing in Discrete Lévy Models
 ```
+:::
+
+### Slide 2: Theoretical Background
+
+:::{.full-width}
+```{figure} documentation/misc/Slide2.PNG
+:width: 100%
+:align: center
+:alt: Slide 2
+
+Theoretical foundations and mathematical framework
+```
+:::
+
+### Slide 3: NIG Process Simulation
+
+:::{.full-width}
+```{figure} documentation/misc/Slide3.PNG
+:width: 100%
+:align: center
+:alt: Slide 3
+
+Normal Inverse Gaussian process simulation methodology
+```
+:::
+
+### Slide 4: Inverse Transform Method
+
+:::{.full-width}
+```{figure} documentation/misc/Slide4.PNG
+:width: 100%
+:align: center
+:alt: Slide 4
+
+Implementation of the Inverse Transform Method
+```
+:::
+
+### Slide 5: R Implementation
+
+:::{.full-width}
+```{figure} documentation/misc/Slide5.PNG
+:width: 100%
+:align: center
+:alt: Slide 5
+
+R code implementation and practical examples
+```
+:::
+
+### Slide 6: Performance Comparison
+
+:::{.full-width}
+```{figure} documentation/misc/Slide6.PNG
+:width: 100%
+:align: center
+:alt: Slide 6
+
+Benchmarking results and performance metrics
+```
+:::
+
+### Slide 7: Conclusions
+
+:::{.full-width}
+```{figure} documentation/misc/Slide7.PNG
+:width: 100%
+:align: center
+:alt: Slide 7
+
+Key findings and future research directions
+```
+:::
 
 ## Presentation Highlights
 
 ### Algorithm Comparison
+
 Detailed analysis of Normal Inverse Gaussian vs. Inverse Transform Method:
-
-```{figure} assets/algorithm-comparison.png
-:width: 800px
-:align: center
-:alt: Algorithm Comparison
-
-Side-by-side comparison of NIG and Inverse Transform algorithms
-```
-
-### Performance Metrics
-
-Computational efficiency benchmarks and accuracy measurements:
 
 | Algorithm | Execution Time | Memory Usage | Pricing Error |
 |-----------|---------------|--------------|---------------|
@@ -42,12 +115,72 @@ Computational efficiency benchmarks and accuracy measurements:
 | Monte Carlo | 145.2ms | 1.2 GB | 0.0098 |
 | Analytical (Benchmark) | 0.2ms | 8 MB | 0.0000 |
 
+### Performance Metrics
+
+Computational efficiency benchmarks and accuracy measurements demonstrate the superiority of our optimized implementations.
+
 ### Implementation Results
 
-Real-world testing outcomes and practical insights from our R implementation:
+Real-world testing outcomes and practical insights from our R implementation show significant improvements in both speed and accuracy.
+
+## Key Findings
+
+### 1. Comparative Analysis
+
+Our research reveals distinct advantages of each algorithmic approach:
+
+- **NIG Process**: Better for capturing tail behavior and volatility clustering
+- **Inverse Transform**: Superior computational efficiency for real-time applications
+- **Hybrid Approach**: Optimal for balancing accuracy and speed
+
+### 2. Performance Optimization
+
+Strategies for large-scale financial simulations:
+
+:::{card}
+**Optimization Techniques**
+^^^
+- Vectorization techniques in R
+- Parallel processing with `parallel` package
+- Memory-efficient data structures
+- Just-in-time compilation with `compiler` package
+:::
+
+### 3. Practical Guidelines
+
+| Use Case | Recommended Method | Reasoning |
+|----------|-------------------|-----------|
+| Real-time pricing | Inverse Transform | Fastest execution |
+| Risk management | NIG Process | Better tail behavior |
+| Calibration | Hybrid approach | Balance accuracy/speed |
+| Research | All methods | Comprehensive analysis |
+
+## Technical Implementation
+
+### R Package Development
+
+```{code-block} r
+:caption: Package Structure
+
+levyoptions/
+├── R/
+│   ├── nig_process.R
+│   ├── inverse_transform.R
+│   ├── option_pricing.R
+│   └── utilities.R
+├── src/
+│   └── fast_fourier.cpp
+├── tests/
+│   └── testthat/
+└── vignettes/
+    └── introduction.Rmd
+```
+
+### Code Examples
 
 ```{code-block} r
 :caption: Performance Comparison Code
+:linenos:
 
 library(microbenchmark)
 library(ggplot2)
@@ -67,172 +200,10 @@ autoplot(results) +
        x = "Method", y = "Execution Time (ms)")
 ```
 
-### R Code Demonstrations
+## Download Presentation
 
-Live coding examples and best practices presented during the conference:
-
-#### Example 1: NIG Process Simulation
-
-```{code-block} r
-:caption: NIG Process Implementation
-
-# Efficient NIG process simulation
-simulate_NIG_optimized <- function(n_paths, n_steps, dt, params) {
-  # Unpack parameters
-  alpha <- params$alpha
-  beta <- params$beta
-  delta <- params$delta
-  mu <- params$mu
-  
-  # Pre-allocate memory
-  paths <- matrix(0, nrow = n_paths, ncol = n_steps + 1)
-  
-  # Vectorized simulation
-  for (i in 1:n_steps) {
-    # Generate subordinator
-    G <- rgamma(n_paths, shape = dt * delta, rate = 1)
-    
-    # Generate innovations
-    W <- rnorm(n_paths, mean = 0, sd = sqrt(G))
-    
-    # Update paths
-    paths[, i + 1] <- paths[, i] + mu * dt + beta * G + W
-  }
-  
-  return(paths)
-}
-```
-
-#### Example 2: Inverse Transform Method
-
-```{code-block} r
-:caption: Inverse Transform Implementation
-
-# Inverse transform method for Lévy process
-inverse_transform_levy <- function(u, char_func, n_points = 2^12) {
-  # FFT grid
-  du <- 2 * pi / n_points
-  u_grid <- seq(0, n_points - 1) * du
-  
-  # Characteristic function values
-  phi_values <- char_func(u_grid)
-  
-  # Inverse FFT
-  x_values <- Re(fft(phi_values, inverse = TRUE)) / n_points
-  
-  # Interpolate to get CDF
-  cdf_func <- approxfun(x_values, pnorm(seq_along(x_values)))
-  
-  # Apply inverse transform
-  return(cdf_func(u))
-}
-```
-
-## Key Findings
-
-### 1. Comparative Analysis
-
-Our research reveals distinct advantages of each algorithmic approach:
-
-```{figure} assets/results-comparison.png
-:width: 700px
-:align: center
-:alt: Results Comparison
-
-Comprehensive comparison of accuracy vs. speed trade-offs
-```
-
-### 2. Performance Optimization
-
-Strategies for large-scale financial simulations:
-- Vectorization techniques
-- Parallel processing with `parallel` package
-- Memory-efficient data structures
-- Just-in-time compilation with `compiler` package
-
-### 3. Practical Guidelines
-
-Recommendations for practitioners:
-
-| Use Case | Recommended Method | Reasoning |
-|----------|-------------------|-----------|
-| Real-time pricing | Inverse Transform | Fastest execution |
-| Risk management | NIG Process | Better tail behavior |
-| Calibration | Hybrid approach | Balance accuracy/speed |
-| Research | All methods | Comprehensive analysis |
-
-## Technical Implementation
-
-### R Package Development
-
-Modular code structure for extensibility:
-
-```
-levyoptions/
-├── R/
-│   ├── nig_process.R
-│   ├── inverse_transform.R
-│   ├── option_pricing.R
-│   └── utilities.R
-├── src/
-│   └── fast_fourier.cpp
-├── tests/
-│   └── testthat/
-└── vignettes/
-    └── introduction.Rmd
-```
-
-### Parallel Processing
-
-Optimization techniques for computational efficiency:
-
-```{code-block} r
-:caption: Parallel Option Pricing
-
-library(parallel)
-
-# Detect cores
-n_cores <- detectCores() - 1
-
-# Set up cluster
-cl <- makeCluster(n_cores)
-
-# Parallel option pricing
-prices <- parLapply(cl, strike_grid, function(K) {
-  price_option_NIG(S0, K, r, T, params)
-})
-
-stopCluster(cl)
-```
-
-### Visualization Tools
-
-Interactive plots and analytical dashboards:
-
-```{code-block} r
-:caption: Interactive Visualization
-
-library(plotly)
-
-# Create interactive implied volatility surface
-plot_ly(
-  x = ~maturity, 
-  y = ~strike, 
-  z = ~implied_vol,
-  type = "surface",
-  colorscale = "Viridis"
-) %>%
-  layout(
-    title = "Implied Volatility Surface - Lévy Model",
-    scene = list(
-      xaxis = list(title = "Maturity"),
-      yaxis = list(title = "Strike"),
-      zaxis = list(title = "Implied Vol")
-    )
-  )
-```
-
-## Presentation Slides
+:::{admonition} Presentation Slides
+:class: important
 
 Access the complete presentation slides with all code examples and detailed results:
 
@@ -241,8 +212,12 @@ Access the complete presentation slides with all code examples and detailed resu
 :align: center
 📄 Download Presentation Slides PDF
 ```
+:::
 
 ## Source Code Repository
+
+:::{admonition} GitHub Repository
+:class: tip
 
 Explore the complete implementation on GitHub:
 
@@ -251,14 +226,18 @@ Explore the complete implementation on GitHub:
 :align: center
 🐙 View Source Code on GitHub
 ```
+:::
 
 ## Conference Information
 
+:::{card}
 **R/Finance 2024: Applied Finance with R**
-- Date: May 17-18, 2024
-- Location: University of Illinois at Chicago
-- Session: Computational Methods in Derivatives Pricing
-- Duration: 30 minutes + Q&A
+^^^
+- **Date**: May 17-18, 2024
+- **Location**: University of Illinois at Chicago
+- **Session**: Computational Methods in Derivatives Pricing
+- **Duration**: 30 minutes + Q&A
+:::
 
 ## Questions & Discussion
 
@@ -276,6 +255,7 @@ Key questions addressed during the presentation:
 ## Future Work
 
 Directions for extending this research:
+
 - Multi-dimensional Lévy processes
 - Machine learning for parameter calibration
 - Real-time risk management applications
@@ -292,6 +272,12 @@ We thank:
 ## Contact
 
 For questions or collaboration:
-- Joseph Loss: [connect@josephjloss.com](mailto:connect@josephjloss.com)
+
+:::{card}
+**Joseph Loss**
+^^^
+- Email: [connect@josephjloss.com](mailto:connect@josephjloss.com)
 - GitHub: [@chicago-joe](https://github.com/chicago-joe)
 - LinkedIn: [josephjl](https://linkedin.com/in/josephjl)
+- Website: [josephjloss.com](https://josephjloss.com)
+:::

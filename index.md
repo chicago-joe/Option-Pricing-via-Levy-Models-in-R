@@ -1,11 +1,7 @@
 ---
 title: "Options Pricing in Discrete Lévy Models"
-subtitle: "Research Implementation and Analysis"
-authors:
-  - Joseph Loss
-  - Yuchen Duan  
-  - Daniel Liberman
-date: 2025-01-18
+author: "Joseph Loss, Yuchen Duan, Daniel Liberman"
+date: "2025-01-18"
 abstract: |
   This research explores the implementation of two algorithms for options pricing in Lévy models, 
   specifically comparing the Normal Inverse Gaussian (NIG) process with the Inverse Transform Method. 
@@ -15,40 +11,50 @@ abstract: |
 
 # Options Pricing in Discrete Lévy Models
 
-## Research Overview
+## Research Implementation and Analysis
 
 This research proposal outlines our comprehensive study of options pricing methodologies within Lévy models, specifically focusing on the implementation and comparison of two distinct algorithmic approaches.
 
-```{figure} assets/levy-process-diagram.png
-:width: 600px
+:::{.full-width}
+```{figure} documentation/misc/Slide1.PNG
+:width: 100%
 :align: center
-:alt: Lévy Process Diagram
+:alt: Options Pricing Overview
 
-Illustration of Lévy process paths and their application in options pricing
+Lévy Process Diagram - Illustration of Lévy process paths and their application in options pricing
 ```
+:::
 
 ## Key Research Components
 
 ### Normal Inverse Gaussian (NIG) Process
+
 Implementation of advanced stochastic processes for more accurate market modeling. The NIG process captures important stylized facts of financial markets including:
-- Heavy tails in return distributions
-- Volatility clustering
-- Asymmetric returns
+
+- **Heavy tails** in return distributions
+- **Volatility clustering** 
+- **Asymmetric returns**
 
 ### Inverse Transform Method
+
 Comparative analysis of computational efficiency and pricing accuracy through:
+
 - Direct simulation from characteristic functions
-- Optimized numerical integration techniques
+- Optimized numerical integration techniques  
 - Performance benchmarking against traditional methods
 
 ### Theoretical Foundation
+
 Building upon the seminal work by Feng et al. on simulating Lévy processes from characteristic functions, we extend their methodology to:
+
 - Discrete-time option pricing models
 - Efficient calibration procedures
 - Risk-neutral measure transformations
 
 ### Practical Applications
+
 Real-world options pricing scenarios and performance benchmarking including:
+
 - European option pricing
 - American option approximations
 - Exotic derivatives valuation
@@ -94,21 +100,56 @@ This research aims to contribute to the quantitative finance literature by:
 
 ## Download Research Proposal
 
-Access the complete research proposal with detailed methodology, mathematical formulations, and expected outcomes:
+:::{admonition} Research Proposal
+:class: note
+
+Access the complete research proposal with detailed methodology, mathematical formulations, and expected outcomes.
 
 ```{button-link} documentation/Project Research Proposal.pdf
 :color: primary
 :align: center
 📄 Download Full Research Proposal PDF
 ```
+:::
+
+## Implementation Preview
+
+Here's a preview of our R implementation from the slides:
+
+:::{.full-width}
+```{figure} documentation/misc/Slide5.PNG
+:width: 100%
+:align: center
+:alt: Implementation Preview
+
+R code implementation of the Lévy process simulation algorithms
+```
+:::
 
 ## Collaborators
 
 This research is conducted at the Illinois Institute of Technology by:
 
-- **Joseph Loss** - Lead Researcher, Algorithm Implementation
-- **Yuchen Duan** - Mathematical Modeling, Theoretical Analysis
-- **Daniel Liberman** - Empirical Validation, Market Data Analysis
+:::{card}
+**Joseph Loss** - Lead Researcher
+^^^
+Algorithm Implementation, Performance Analysis
+- [Website](https://josephjloss.com)
+- [LinkedIn](https://linkedin.com/in/josephjl)
+- [GitHub](https://github.com/chicago-joe)
+:::
+
+:::{card}
+**Yuchen Duan** - Co-Researcher
+^^^
+Mathematical Modeling, Theoretical Analysis
+:::
+
+:::{card}
+**Daniel Liberman** - Co-Researcher
+^^^
+Empirical Validation, Market Data Analysis
+:::
 
 ## References
 
