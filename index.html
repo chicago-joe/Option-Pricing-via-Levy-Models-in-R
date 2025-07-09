@@ -87,12 +87,37 @@
             backdrop-filter: blur(10px);
         }
         
-        .pdf-container {
-            width: 100%;
-            min-height: 800px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .content-section {
+            margin-bottom: 30px;
+        }
+        
+        .content-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+        }
+        
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .content-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .content-section strong {
+            color: #2c3e50;
+            font-weight: 600;
         }
         
         .pdf-fallback {
@@ -142,8 +167,8 @@
                 align-items: center;
             }
             
-            .pdf-container {
-                min-height: 600px;
+            .content-section {
+                padding: 20px;
             }
         }
     </style>
@@ -167,17 +192,32 @@
                 <p>This research explores the implementation of two algorithms for options pricing in Lévy models, specifically comparing the Normal Inverse Gaussian (NIG) process with the Inverse Transform Method. Our implementation builds upon the foundational work by Feng et al. on simulating Lévy processes from their characteristic functions.</p>
             </div>
             
-            <iframe 
-                src="documentation/Project Research Proposal.pdf" 
-                class="pdf-container"
-                title="Project Research Proposal - Options Pricing in Lévy Models">
-            </iframe>
-            
-            <div class="pdf-fallback">
-                <p>If the PDF doesn't display above, you can download it directly:</p>
-                <a href="documentation/Project Research Proposal.pdf" class="download-btn" download>
-                    📄 Download Research Proposal PDF
-                </a>
+            <div class="content-section">
+                <h2>Research Abstract</h2>
+                <p>This research proposal outlines our comprehensive study of options pricing methodologies within Lévy models, specifically focusing on the implementation and comparison of two distinct algorithmic approaches:</p>
+                
+                <h3>Key Research Components:</h3>
+                <ul>
+                    <li><strong>Normal Inverse Gaussian (NIG) Process:</strong> Implementation of advanced stochastic processes for more accurate market modeling</li>
+                    <li><strong>Inverse Transform Method:</strong> Comparative analysis of computational efficiency and pricing accuracy</li>
+                    <li><strong>Theoretical Foundation:</strong> Building upon the seminal work by Feng et al. on simulating Lévy processes from characteristic functions</li>
+                    <li><strong>Practical Applications:</strong> Real-world options pricing scenarios and performance benchmarking</li>
+                </ul>
+                
+                <h3>Research Objectives:</h3>
+                <ul>
+                    <li>Develop robust implementations of both pricing algorithms in R</li>
+                    <li>Conduct comprehensive performance analysis comparing computational efficiency</li>
+                    <li>Validate pricing accuracy against market data and theoretical benchmarks</li>
+                    <li>Provide practical guidance for practitioners in quantitative finance</li>
+                </ul>
+                
+                <div class="pdf-fallback">
+                    <p>For the complete research proposal with detailed methodology, mathematical formulations, and expected outcomes:</p>
+                    <a href="documentation/Project Research Proposal.pdf" class="download-btn" download>
+                        📄 Download Full Research Proposal PDF
+                    </a>
+                </div>
             </div>
         </div>
     </div>

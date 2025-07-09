@@ -86,12 +86,37 @@
             backdrop-filter: blur(10px);
         }
         
-        .pdf-container {
-            width: 100%;
-            min-height: 800px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .content-section {
+            margin-bottom: 30px;
+        }
+        
+        .content-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+        }
+        
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .content-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .content-section strong {
+            color: #2c3e50;
+            font-weight: 600;
         }
         
         .pdf-fallback {
@@ -159,8 +184,8 @@
                 align-items: center;
             }
             
-            .pdf-container {
-                min-height: 600px;
+            .content-section {
+                padding: 20px;
             }
         }
     </style>
@@ -183,20 +208,43 @@
                 <p>This R/Finance conference presentation showcases our implementation results, comparing the Normal Inverse Gaussian algorithm with the Inverse Transform Method. It includes performance analysis, computational efficiency comparisons, and practical applications in options pricing using discrete Lévy models.</p>
             </div>
             
-            <iframe 
-                src="documentation/R-Finance Presentation Slides.pdf" 
-                class="pdf-container"
-                title="R-Finance Presentation Slides - Options Pricing in Discrete Lévy Models">
-            </iframe>
-            
-            <div class="pdf-fallback">
-                <p>If the PDF doesn't display above, you can download it directly or view the source code:</p>
-                <a href="documentation/R-Finance Presentation Slides.pdf" class="download-btn" download>
-                    📄 Download Presentation Slides PDF
-                </a>
-                <a href="https://github.com/chicago-joe/Option-Pricing-via-Levy-Models" class="github-link" target="_blank">
-                    🐙 View Source Code on GitHub
-                </a>
+            <div class="content-section">
+                <h2>R/Finance Conference Presentation</h2>
+                <p>This presentation was delivered at the R/Finance conference, showcasing our comprehensive research on options pricing in discrete Lévy models with practical implementation results and performance analysis.</p>
+                
+                <h3>Presentation Highlights:</h3>
+                <ul>
+                    <li><strong>Algorithm Comparison:</strong> Detailed analysis of Normal Inverse Gaussian vs. Inverse Transform Method</li>
+                    <li><strong>Performance Metrics:</strong> Computational efficiency benchmarks and accuracy measurements</li>
+                    <li><strong>Implementation Results:</strong> Real-world testing outcomes and practical insights</li>
+                    <li><strong>R Code Demonstrations:</strong> Live coding examples and best practices</li>
+                </ul>
+                
+                <h3>Key Findings:</h3>
+                <ul>
+                    <li>Comparative analysis reveals distinct advantages of each algorithmic approach</li>
+                    <li>Performance optimization strategies for large-scale financial simulations</li>
+                    <li>Practical guidelines for practitioners in quantitative finance</li>
+                    <li>Recommendations for future research directions</li>
+                </ul>
+                
+                <h3>Technical Implementation:</h3>
+                <ul>
+                    <li><strong>R Package Development:</strong> Modular code structure for extensibility</li>
+                    <li><strong>Parallel Processing:</strong> Optimization techniques for computational efficiency</li>
+                    <li><strong>Visualization Tools:</strong> Interactive plots and analytical dashboards</li>
+                    <li><strong>Benchmarking Framework:</strong> Standardized testing protocols</li>
+                </ul>
+                
+                <div class="pdf-fallback">
+                    <p>Access the complete presentation slides and explore the source code implementation:</p>
+                    <a href="documentation/R-Finance Presentation Slides.pdf" class="download-btn" download>
+                        📄 Download Presentation Slides PDF
+                    </a>
+                    <a href="https://github.com/chicago-joe/Option-Pricing-via-Levy-Models" class="github-link" target="_blank">
+                        🐙 View Source Code on GitHub
+                    </a>
+                </div>
             </div>
         </div>
     </div>

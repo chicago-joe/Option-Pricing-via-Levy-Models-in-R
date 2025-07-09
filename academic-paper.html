@@ -86,12 +86,37 @@
             backdrop-filter: blur(10px);
         }
         
-        .pdf-container {
-            width: 100%;
-            min-height: 800px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .content-section {
+            margin-bottom: 30px;
+        }
+        
+        .content-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+        }
+        
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .content-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .content-section strong {
+            color: #2c3e50;
+            font-weight: 600;
         }
         
         .pdf-fallback {
@@ -141,8 +166,8 @@
                 align-items: center;
             }
             
-            .pdf-container {
-                min-height: 600px;
+            .content-section {
+                padding: 20px;
             }
         }
     </style>
@@ -165,17 +190,40 @@
                 <p>This comprehensive academic paper by Feng et al. presents advanced methods for options pricing in Lévy models. It provides the theoretical foundation and practical algorithms that form the basis of our research implementation, covering simulation techniques and financial applications.</p>
             </div>
             
-            <iframe 
-                src="documentation/Option Pricing in Levy Models - Feng et al - Academic Paper.pdf" 
-                class="pdf-container"
-                title="Option Pricing in Levy Models - Feng et al - Academic Paper">
-            </iframe>
-            
-            <div class="pdf-fallback">
-                <p>If the PDF doesn't display above, you can download it directly:</p>
-                <a href="documentation/Option Pricing in Levy Models - Feng et al - Academic Paper.pdf" class="download-btn" download>
-                    📄 Download Academic Paper PDF
-                </a>
+            <div class="content-section">
+                <h2>Academic Paper Overview</h2>
+                <p>This foundational academic paper by Feng et al. presents cutting-edge methodologies for options pricing within Lévy model frameworks, providing the theoretical underpinnings for our research implementation.</p>
+                
+                <h3>Key Contributions:</h3>
+                <ul>
+                    <li><strong>Simulation Techniques:</strong> Novel approaches for simulating Lévy processes from their characteristic functions</li>
+                    <li><strong>Mathematical Framework:</strong> Rigorous mathematical foundation for Lévy process applications in finance</li>
+                    <li><strong>Algorithmic Innovations:</strong> Efficient computational methods for complex stochastic process simulation</li>
+                    <li><strong>Practical Applications:</strong> Real-world implementation strategies for financial derivatives pricing</li>
+                </ul>
+                
+                <h3>Research Significance:</h3>
+                <ul>
+                    <li>Establishes theoretical foundation for Lévy process simulation in quantitative finance</li>
+                    <li>Provides computational algorithms that bridge theory and practice</li>
+                    <li>Offers empirical validation of proposed methodologies</li>
+                    <li>Enables more accurate modeling of financial market dynamics</li>
+                </ul>
+                
+                <h3>Technical Highlights:</h3>
+                <ul>
+                    <li><strong>Characteristic Function Approach:</strong> Leverages the analytical tractability of characteristic functions</li>
+                    <li><strong>Computational Efficiency:</strong> Optimized algorithms for large-scale financial simulations</li>
+                    <li><strong>Numerical Stability:</strong> Robust implementation strategies for complex mathematical operations</li>
+                    <li><strong>Empirical Testing:</strong> Comprehensive validation against market data and benchmarks</li>
+                </ul>
+                
+                <div class="pdf-fallback">
+                    <p>Access the complete academic paper for detailed mathematical derivations, proofs, and comprehensive analysis:</p>
+                    <a href="documentation/Option Pricing in Levy Models - Feng et al - Academic Paper.pdf" class="download-btn" download>
+                        📄 Download Academic Paper PDF
+                    </a>
+                </div>
             </div>
         </div>
     </div>
