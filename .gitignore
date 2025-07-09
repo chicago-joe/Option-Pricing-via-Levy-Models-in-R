@@ -1,36 +1,32 @@
-# History files
-.Rhistory
-.Rapp.history
+# MyST build artifacts
+_build/
+.myst/
+node_modules/
 
-# Session Data files
-.RData
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.env
 
-# Example code in package build process
-*-Ex.R
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Output files from R CMD build
-/*.tar.gz
+# OS
+.DS_Store
+Thumbs.db
 
-# Output files from R CMD check
-/*.Rcheck/
+# Logs
+*.log
 
-# RStudio files
-.Rproj.user/
-
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
-
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
-
-# knitr and R markdown default cache directories
-/*_cache/
-/cache/
-
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
-
-# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
-rsconnect/
+# Temporary files
+*.tmp
+*.bak
+.cache/
