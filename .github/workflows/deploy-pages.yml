@@ -59,18 +59,30 @@ jobs:
           curl -L -o typst.tar.xz \
             https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz
           tar -xf typst.tar.xz
-          mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
           
       - name: Prepare Directories
         run: mkdir -p exports
 
       - name: Build HTML Assets (with execution)
-        run: myst build --execute -d --html --md
+        run: myst build --execute -d --html --md --pdf
               
       - name: Ensure PDFs are in HTML output
         run: |
           mkdir -p _build/html/exports
-          cp exports/*.pdf _build/html/exports/ || echo "No PDFs found to copy"
+          mkdir -p _build/html/documentation
+          # Copy exports PDFs if they exist
+          if [ -d "exports" ] && [ "$(ls -A exports/*.pdf 2>/dev/null)" ]; then
+            cp exports/*.pdf _build/html/exports/
+          else
+            echo "No PDFs found in exports directory"
+          fi
+          # Copy documentation PDFs
+          if [ -d "documentation" ] && [ "$(ls -A documentation/*.pdf 2>/dev/null)" ]; then
+            cp documentation/*.pdf _build/html/documentation/
+          else
+            echo "No PDFs found in documentation directory"
+          fi
           
       - name: Copy custom CSS to build directory
         run: |
@@ -78,7 +90,12 @@ jobs:
           cp custom.css _build/html/assets/ || echo "custom.css file not found"
           
       - name: Copy project assets into build output
-        run: cp -R assets _build/html/assets      
+        run: |
+          if [ -d "assets" ]; then
+            cp -R assets/* _build/html/assets/ || echo "No assets to copy"
+          else
+            echo "Assets directory not found"
+          fi      
   
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
