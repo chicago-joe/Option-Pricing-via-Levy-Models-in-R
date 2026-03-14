@@ -224,4 +224,4 @@ This project is licensed under the MIT License.
 
 ---
 
-For questions or issues, please contact Joseph Loss at connect@josephjloss.com
+For questions or issues, please contact Joseph Loss at contact@mail.chicagojoe.dev

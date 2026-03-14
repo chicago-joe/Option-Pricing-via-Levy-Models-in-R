@@ -276,7 +276,7 @@ For questions or collaboration:
 :::{card}
 **Joseph Loss**
 ^^^
-- Email: [connect@josephjloss.com](mailto:connect@josephjloss.com)
+- Email: [contact@mail.chicagojoe.dev](mailto:contact@mail.chicagojoe.dev)
 - GitHub: [@chicago-joe](https://github.com/chicago-joe)
 - LinkedIn: [josephjl](https://linkedin.com/in/josephjl)
 - Website: [josephjloss.com](https://josephjloss.com)
