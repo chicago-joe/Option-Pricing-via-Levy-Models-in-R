@@ -31,15 +31,21 @@ site:
   template: book-theme
   title: "Joseph Loss - Options Pricing Research"
   nav:
-    - title: My Website
-      url: https://josephjloss.com
+    - title: chicagojoe.dev
+      url: https://chicagojoe.dev
     - title: LinkedIn
       url: https://linkedin.com/in/josephjl
-    - title: GitHub
+      icon: linkedin
+    - title: chicago-joe
       url: https://github.com/chicago-joe
+      icon: github
   actions:
     - title: View on GitHub
       url: https://github.com/chicago-joe/Option-Pricing-via-Levy-Models-in-R
+    - title: "Download Academic Paper"
+      url: "documentation/Option Pricing in Levy Models - Feng et al - Academic Paper.pdf"
+    - title: "Download Presentation"
+      url: "documentation/R-Finance Presentation Slides.pdf"
   options:
     style: ./custom.css
     show_source: false
