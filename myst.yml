@@ -7,13 +7,13 @@ project:
   authors:
     - name: Joseph Loss
       corresponding: true
-      email: contact@mail.chicagojoe.dev
+      email: noreply@chicagojoe.dev
       url: https://josephjloss.com
       github: chicago-joe
       linkedin: https://linkedin.com/in/josephjl
     - name: Yuchen Duan
     - name: Daniel Liberman
-  github: https://github.com/chicago-joe/Option-Pricing-via-Levy-Models/
+  github: https://github.com/chicago-joe/Option-Pricing-via-Levy-Models-in-R
   exports:
     - format: pdf
       template: lapreprint-typst
@@ -39,7 +39,7 @@ site:
       url: https://github.com/chicago-joe
   actions:
     - title: View on GitHub
-      url: https://github.com/chicago-joe/Option-Pricing-via-Levy-Models
+      url: https://github.com/chicago-joe/Option-Pricing-via-Levy-Models-in-R
   options:
     style: ./custom.css
     show_source: false
