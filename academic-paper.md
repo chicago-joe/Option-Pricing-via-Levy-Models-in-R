@@ -135,11 +135,7 @@ The authors provide comprehensive empirical testing demonstrating the superiorit
 
 For detailed mathematical derivations, proofs, and comprehensive analysis:
 
-```{button-link} documentation/Option Pricing in Levy Models - Feng et al - Academic Paper.pdf
-:color: primary
-:align: center
-📄 Download Academic Paper PDF
-```
+📄 [Download Academic Paper PDF](documentation/Option%20Pricing%20in%20Levy%20Models%20-%20Feng%20et%20al%20-%20Academic%20Paper.pdf)
 :::
 
 ## Citation
