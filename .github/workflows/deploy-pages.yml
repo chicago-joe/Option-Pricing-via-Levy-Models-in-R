@@ -6,8 +6,8 @@ on:
       - master
   workflow_dispatch:
   
-# env:
-  # BASE_URL: /${{ github.event.repository.name }}
+env:
+  BASE_URL: /${{ github.event.repository.name }}
 
 permissions:
   contents: read
