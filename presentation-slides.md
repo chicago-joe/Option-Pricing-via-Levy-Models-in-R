@@ -207,11 +207,7 @@ autoplot(results) +
 
 Access the complete presentation slides with all code examples and detailed results:
 
-```{button-link} documentation/R-Finance Presentation Slides.pdf
-:color: primary
-:align: center
-📄 Download Presentation Slides PDF
-```
+📄 [Download Presentation Slides PDF](documentation/R-Finance%20Presentation%20Slides.pdf)
 :::
 
 ## Source Code Repository
@@ -221,11 +217,7 @@ Access the complete presentation slides with all code examples and detailed resu
 
 Explore the complete implementation on GitHub:
 
-```{button-link} https://github.com/chicago-joe/Option-Pricing-via-Levy-Models
-:color: success
-:align: center
-🐙 View Source Code on GitHub
-```
+🐙 [View Source Code on GitHub](https://github.com/chicago-joe/Option-Pricing-via-Levy-Models-in-R)
 :::
 
 ## Conference Information
