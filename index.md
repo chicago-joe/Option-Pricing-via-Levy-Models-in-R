@@ -134,7 +134,7 @@ This research is conducted at the Illinois Institute of Technology by:
 **Joseph Loss** - Lead Researcher
 ^^^
 Algorithm Implementation, Performance Analysis
-- [Website](https://josephjloss.com)
+- [Website](https://chicagojoe.dev)
 - [LinkedIn](https://linkedin.com/in/josephjl)
 - [GitHub](https://github.com/chicago-joe)
 :::
