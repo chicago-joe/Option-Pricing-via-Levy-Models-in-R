@@ -271,5 +271,5 @@ For questions or collaboration:
 - Email: [noreply@chicagojoe.dev](mailto:noreply@chicagojoe.dev)
 - GitHub: [@chicago-joe](https://github.com/chicago-joe)
 - LinkedIn: [josephjl](https://linkedin.com/in/josephjl)
-- Website: [josephjloss.com](https://josephjloss.com)
+- Website: [chicagojoe.dev](https://chicagojoe.dev)
 :::
