@@ -156,7 +156,7 @@ If you use this work in your research, please cite:
 
 - [Supplementary Materials](https://github.com/chicago-joe/Option-Pricing-via-Levy-Models)
 - [Code Repository](https://github.com/chicago-joe/Option-Pricing-via-Levy-Models)
-- [Contact](https://chicagojoe.dev/#contact)
+- [Contact](mailto:contact@mail.chicagojoe.dev)
 
 ## Impact and Citations
 
