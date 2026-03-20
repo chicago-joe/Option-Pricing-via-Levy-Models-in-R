@@ -268,7 +268,7 @@ For questions or collaboration:
 :::{card}
 **Joseph Loss**
 ^^^
-- Email: [noreply@chicagojoe.dev](mailto:noreply@chicagojoe.dev)
+- Contact: [chicagojoe.dev/#contact](https://chicagojoe.dev/#contact)
 - GitHub: [@chicago-joe](https://github.com/chicago-joe)
 - LinkedIn: [josephjl](https://linkedin.com/in/josephjl)
 - Website: [chicagojoe.dev](https://chicagojoe.dev)
